@@ -300,7 +300,7 @@ export default function LandingPage() {
             </div>
             <div className="bg-white rounded-3xl p-8 shadow-lg border border-cyan-100">
               <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-sky-500 to-cyan-500 flex items-center justify-center text-white mb-6">
-                <Target size={32} />
+                <Target width={32} height={32} />
               </div>
               <h3 className="text-2xl font-bold text-gray-900 mb-4">Misi</h3>
               <ul className="space-y-3 text-gray-500">
