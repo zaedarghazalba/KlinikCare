@@ -37,11 +37,9 @@ export default function OwnerDashboard() {
   const maxCount = Math.max(...(stats?.dailyStats || []).map(d => d.count), 1);
 
   const cards = [
-    { label: "Total Pasien", value: stats?.totalPatients || 0, icon: Users, color: "from-blue-500 to-blue-600", bg: "bg-blue-50", text: "text-blue-600" },
-    { label: "Total Kunjungan", value: stats?.totalAppointments || 0, icon: CalendarCheck, color: "from-emerald-500 to-emerald-600", bg: "bg-emerald-50", text: "text-emerald-600" },
-    { label: "Selesai", value: stats?.completedAppointments || 0, icon: CheckCircle2, color: "from-purple-500 to-purple-600", bg: "bg-purple-50", text: "text-purple-600" },
-    { label: "Dibatalkan", value: stats?.cancelledAppointments || 0, icon: XCircle, color: "from-red-500 to-red-600", bg: "bg-red-50", text: "text-red-600" },
-    { label: "Pendapatan", value: formatCurrency(stats?.totalRevenue || 0), icon: DollarSign, color: "from-amber-500 to-orange-500", bg: "bg-amber-50", text: "text-amber-600", span: "col-span-1 md:col-span-2" },
+    { label: "Total Pasien", value: stats?.totalPatients || 0, icon: Users, color: "from-primary-500 to-primary-600", bg: "bg-primary-50", text: "text-primary-600" },
+    { label: "Selesai", value: stats?.completedAppointments || 0, icon: CheckCircle2, color: "from-primary-500 to-primary-600", bg: "bg-primary-50", text: "text-primary-600" },
+    { label: "Pendapatan", value: formatCurrency(stats?.totalRevenue || 0), icon: DollarSign, color: "from-primary-500 to-primary-600", bg: "bg-primary-50", text: "text-primary-600", span: "col-span-1 md:col-span-2" },
   ];
 
   return (

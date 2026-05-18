@@ -15,9 +15,9 @@ export default function LandingImages({ src, alt, className, fallbackText }: Lan
 
   if (error) {
     return (
-      <div className={`flex items-center justify-center bg-gradient-to-br from-cyan-100 to-sky-200 ${className}`}>
+      <div className={`flex items-center justify-center bg-gradient-to-br from-primary-100 to-accent-100 ${className}`}>
         {fallbackText && (
-          <span className="text-4xl font-bold text-cyan-600">
+          <span className="text-4xl font-display font-bold text-primary-700">
             {fallbackText}
           </span>
         )}

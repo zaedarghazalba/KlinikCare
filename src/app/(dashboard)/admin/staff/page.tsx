@@ -196,9 +196,9 @@ export default function StaffPage() {
                     <td className="px-4 py-3 text-gray-500">{s.email}</td>
                     <td className="px-4 py-3">
                       <span className={`px-2 py-1 rounded-full text-xs font-medium ${
-                        s.role === "ADMIN" ? "bg-blue-50 text-blue-700" :
-                        s.role === "DOCTOR" ? "bg-purple-50 text-purple-700" :
-                        "bg-teal-50 text-teal-700"
+                        s.role === "ADMIN" ? "bg-primary-50 text-primary-700" :
+                        s.role === "DOCTOR" ? "bg-primary-50 text-primary-700" :
+                        "bg-primary-50 text-primary-700"
                       }`}>
                         {s.role === "ADMIN" ? "Admin" : s.role === "DOCTOR" ? "Dokter" : "Apoteker"}
                       </span>

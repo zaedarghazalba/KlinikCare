@@ -131,7 +131,7 @@ export default function PatientManagement() {
                   <td className="px-6 py-4 text-sm text-gray-600">{p._count.appointments}x</td>
                   <td className="px-6 py-4">
                     <div className="flex items-center justify-end gap-1">
-                      <button onClick={() => openEdit(p)} className="p-2 rounded-lg hover:bg-blue-50 text-blue-500 transition-colors"><Pencil size={16} /></button>
+                      <button onClick={() => openEdit(p)} className="p-2 rounded-lg hover:bg-primary-50 text-primary-500 transition-colors"><Pencil size={16} /></button>
                       <button onClick={() => handleDelete(p.id)} className="p-2 rounded-lg hover:bg-red-50 text-red-500 transition-colors"><Trash2 size={16} /></button>
                     </div>
                   </td>

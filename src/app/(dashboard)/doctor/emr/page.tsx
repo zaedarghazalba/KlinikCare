@@ -110,7 +110,7 @@ function EMRContent() {
         <h2 className="text-xl lg:text-2xl font-bold text-gray-900 mb-2">Rekam Medis Tersimpan</h2>
         <p className="text-gray-500 mb-4">Data rekam medis pasien berhasil disimpan.</p>
         {prescriptions.some(p => p.medicationName) && (
-          <div className="bg-blue-50 border border-blue-200 rounded-xl p-4 mb-6 lg:mb-8">
+          <div className="bg-primary-50 border border-primary-200 rounded-xl p-4 mb-6 lg:mb-8">
             <p className="text-blue-800 font-medium">Resep obat telah dikirim ke Apoteker</p>
             <p className="text-blue-600 text-sm mt-1">Apoteker akan memproses dan menyerahkan obat kepada pasien</p>
           </div>

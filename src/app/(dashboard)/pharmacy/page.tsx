@@ -172,7 +172,7 @@ export default function PharmacyPage() {
         <div className="space-y-4">
           {/* Filter resep */}
           <div className="flex gap-2">
-            <button onClick={() => setRxFilter("pending")} className={`px-4 py-2 rounded-xl text-sm font-medium transition-all ${rxFilter === "pending" ? "bg-amber-500 text-white" : "bg-white border border-gray-200 text-gray-600"}`}>
+            <button onClick={() => setRxFilter("pending")} className={`px-4 py-2 rounded-xl text-sm font-medium transition-all ${rxFilter === "pending" ? "bg-primary-500 text-white" : "bg-white border border-gray-200 text-gray-600"}`}>
               Menunggu ({prescriptions.filter(p => p.status === "PENDING").length})
             </button>
             <button onClick={() => setRxFilter("completed")} className={`px-4 py-2 rounded-xl text-sm font-medium transition-all ${rxFilter === "completed" ? "bg-emerald-500 text-white" : "bg-white border border-gray-200 text-gray-600"}`}>
@@ -193,7 +193,7 @@ export default function PharmacyPage() {
                     <h3 className="font-semibold text-gray-900">{group.patient?.name || "Pasien"}</h3>
                     <p className="text-xs text-gray-500">Dr. {group.doctor?.name} · {new Date(group.createdAt).toLocaleDateString("id-ID")}</p>
                   </div>
-                  <span className={`px-2.5 py-1 rounded-md text-[10px] font-bold uppercase tracking-wider ${group.allDispensed ? "bg-emerald-50 text-emerald-600" : "bg-amber-50 text-amber-600"}`}>
+                  <span className={`px-2.5 py-1 rounded-md text-[10px] font-bold uppercase tracking-wider ${group.allDispensed ? "bg-primary-50 text-primary-600" : "bg-primary-50 text-primary-600"}`}>
                     {group.allDispensed ? "Selesai" : "Menunggu"}
                   </span>
                 </div>
@@ -268,14 +268,14 @@ export default function PharmacyPage() {
                       {m.stock > 10 ? (
                         <span className="text-emerald-600 text-xs font-semibold px-2 py-1 bg-emerald-50 rounded-md">Tersedia</span>
                       ) : m.stock > 0 ? (
-                        <span className="text-amber-600 text-xs font-semibold px-2 py-1 bg-amber-50 rounded-md">Menipis</span>
+                        <span className="text-primary-600 text-xs font-semibold px-2 py-1 bg-primary-50 rounded-md">Menipis</span>
                       ) : (
                         <span className="text-red-600 text-xs font-semibold px-2 py-1 bg-red-50 rounded-md">Habis</span>
                       )}
                     </td>
                     <td className="px-6 py-4 text-right">
                       <div className="flex items-center justify-end gap-2">
-                        <button onClick={() => openEditModal(m)} className="p-1.5 text-blue-600 bg-blue-50 hover:bg-blue-100 rounded-md transition-colors" title="Edit Obat"><Edit2 size={16} /></button>
+                        <button onClick={() => openEditModal(m)} className="p-1.5 text-primary-600 bg-primary-50 hover:bg-primary-100 rounded-md transition-colors" title="Edit Obat"><Edit2 size={16} /></button>
                         <button onClick={() => handleDeleteMedicine(m.id)} disabled={loading} className="p-1.5 text-red-600 bg-red-50 hover:bg-red-100 rounded-md transition-colors" title="Hapus Obat"><Trash2 size={16} /></button>
                       </div>
                     </td>

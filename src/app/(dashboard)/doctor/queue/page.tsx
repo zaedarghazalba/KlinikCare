@@ -81,7 +81,7 @@ export default function DoctorQueuePage() {
         ) : queue.map(apt => (
           <div key={apt.id}>
             <div className="flex items-center gap-4 px-6 py-4 hover:bg-gray-50/50 transition-colors">
-              <span className="inline-flex items-center justify-center w-12 h-12 rounded-xl bg-purple-50 text-purple-700 font-bold text-lg">{getQueueDisplay(apt.queueNumber)}</span>
+              <span className="inline-flex items-center justify-center w-12 h-12 rounded-xl bg-primary-50 text-primary-700 font-bold text-lg">{getQueueDisplay(apt.queueNumber)}</span>
               <div className="flex-1">
                 <p className="font-medium text-gray-900">{apt.patient.name}</p>
                 <p className="text-sm text-gray-400">{apt.timeSlot}</p>
@@ -90,7 +90,7 @@ export default function DoctorQueuePage() {
               
               <button 
                 onClick={() => toggleHistory(apt.patient.id)}
-                className="px-3 py-2 rounded-xl bg-blue-50 text-blue-600 text-xs font-semibold hover:bg-blue-100 transition-colors flex items-center gap-1"
+                  className="px-3 py-2 rounded-xl bg-primary-50 text-primary-600 text-xs font-semibold hover:bg-primary-100 transition-colors flex items-center gap-1"
               >
                 <FileText size={14} /> 
                 {expandedPatient === apt.patient.id ? <ChevronUp size={14} /> : <ChevronDown size={14} />}
@@ -98,7 +98,7 @@ export default function DoctorQueuePage() {
               
               {apt.status === "IN_CONSULTATION" && (
                 <a href={`/doctor/emr?appointmentId=${apt.id}&patientId=${apt.patient.id}`}
-                  className="px-4 py-2 rounded-xl bg-purple-500 text-white text-sm font-semibold hover:bg-purple-600 transition-colors">
+                  className="px-4 py-2 rounded-xl bg-primary-500 text-white text-sm font-semibold hover:bg-primary-600 transition-colors">
                   Buka EMR
                 </a>
               )}
@@ -163,7 +163,7 @@ export default function DoctorQueuePage() {
                               <span className="text-sm text-emerald-600 font-medium">{record.doctor?.name || "-"}</span>
                               <button 
                                 onClick={() => setSelectedPrescription(record)}
-                                className="px-3 py-2 rounded-lg bg-blue-500 text-white text-xs font-medium hover:bg-blue-600 transition-colors flex items-center gap-1"
+                                className="px-3 py-2 rounded-lg bg-primary-500 text-white text-xs font-medium hover:bg-primary-600 transition-colors flex items-center gap-1"
                               >
                                 <Pill size={12} /> Lihat Resep
                               </button>

@@ -16,7 +16,7 @@ export default function LayoutWrapper({
   children,
 }: LayoutWrapperProps) {
   return (
-    <div className="min-h-screen bg-gray-50/50">
+    <div className="min-h-screen bg-stone-50/50">
       <Sidebar role={role} userName={userName} />
       <div className="lg:pl-72">
         <Header userName={userName} />

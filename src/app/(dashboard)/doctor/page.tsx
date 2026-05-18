@@ -72,12 +72,12 @@ export default function DoctorDashboard() {
             <div className="p-12 text-center text-gray-400">Belum ada pasien hari ini</div>
           ) : todayQueue.map(apt => (
             <div key={apt.id} className="flex items-center gap-4 px-6 py-4 hover:bg-gray-50/50 transition-colors">
-              <span className="inline-flex items-center justify-center w-10 h-10 rounded-xl bg-purple-50 text-purple-700 font-bold text-sm queue-number">{getQueueDisplay(apt.queueNumber)}</span>
+              <span className="inline-flex items-center justify-center w-10 h-10 rounded-xl bg-primary-50 text-primary-700 font-bold text-sm queue-number">{getQueueDisplay(apt.queueNumber)}</span>
               <div className="flex-1"><p className="font-medium text-gray-900 text-sm">{apt.patient.name}</p><p className="text-xs text-gray-400">{apt.timeSlot}</p></div>
               <span className={`px-3 py-1 rounded-full text-xs font-semibold ${getStatusColor(apt.status)}`}>{getStatusLabel(apt.status)}</span>
               {apt.status === "IN_CONSULTATION" && (
                 <Link href={`/doctor/emr?appointmentId=${apt.id}&patientId=${apt.patient.id}`}
-                  className="px-3 py-1.5 rounded-lg bg-purple-50 text-purple-600 text-xs font-semibold hover:bg-purple-100 transition-colors">EMR</Link>
+                  className="px-3 py-1.5 rounded-lg bg-primary-50 text-primary-600 text-xs font-semibold hover:bg-primary-100 transition-colors">EMR</Link>
               )}
             </div>
           ))}

@@ -129,7 +129,7 @@ useEffect(() => {
         </div>
         <div className="bg-white rounded-2xl p-5 border border-gray-100">
           <div className="flex items-center gap-3 mb-2">
-            <div className="w-10 h-10 rounded-xl bg-amber-100 flex items-center justify-center"><Clock size={20} className="text-amber-600" /></div>
+            <div className="w-10 h-10 rounded-xl bg-primary-100 flex items-center justify-center"><Clock size={20} className="text-primary-600" /></div>
             <p className="text-sm text-gray-500">Menunggu Bayar</p>
           </div>
           <p className="text-2xl font-bold text-gray-900">{summary.pendingCount}</p>
@@ -143,7 +143,7 @@ useEffect(() => {
         </div>
         <div className="bg-white rounded-2xl p-5 border border-gray-100">
           <div className="flex items-center gap-3 mb-2">
-            <div className="w-10 h-10 rounded-xl bg-blue-100 flex items-center justify-center"><DollarSign size={20} className="text-blue-600" /></div>
+            <div className="w-10 h-10 rounded-xl bg-primary-100 flex items-center justify-center"><DollarSign size={20} className="text-primary-600" /></div>
             <p className="text-sm text-gray-500">Pendapatan Hari Ini</p>
           </div>
           <p className="text-2xl font-bold text-gray-900">{formatCurrency(summary.todayPaid)}</p>
@@ -228,7 +228,7 @@ useEffect(() => {
                           </span>
                         )}
                         {inv.status === "PAID" && (
-                          <button onClick={() => { setReceiptData(inv); setTimeout(() => window.print(), 100); }} className="flex items-center gap-1 px-3 py-1.5 rounded-lg bg-blue-50 text-blue-600 text-xs font-semibold hover:bg-blue-100 transition-colors">
+                          <button onClick={() => { setReceiptData(inv); setTimeout(() => window.print(), 100); }} className="flex items-center gap-1 px-3 py-1.5 rounded-lg bg-primary-50 text-primary-600 text-xs font-semibold hover:bg-primary-100 transition-colors">
                             <Printer size={14} /> Cetak
                           </button>
                         )}

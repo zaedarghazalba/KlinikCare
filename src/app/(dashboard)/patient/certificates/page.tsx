@@ -70,8 +70,8 @@ export default function PatientCertificatesPage() {
                     <span className="flex items-center gap-1"><Stethoscope size={14} /> {cert.doctor.name}</span>
                   </div>
                   <div className="flex flex-wrap gap-3 mt-2 text-sm">
-                    <span className="bg-amber-100 text-amber-700 px-2 py-1 rounded-lg font-medium">Istirahat {cert.restDays} hari</span>
-                    <span className="bg-blue-100 text-blue-700 px-2 py-1 rounded-lg">
+                    <span className="bg-primary-100 text-primary-700 px-2 py-1 rounded-lg font-medium">Istirahat {cert.restDays} hari</span>
+                    <span className="bg-primary-100 text-primary-700 px-2 py-1 rounded-lg">
                       {new Date(cert.startDate).toLocaleDateString("id-ID")} - {new Date(cert.endDate).toLocaleDateString("id-ID")}
                     </span>
                   </div>

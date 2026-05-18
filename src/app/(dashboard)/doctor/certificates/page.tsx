@@ -190,7 +190,7 @@ export default function DoctorCertificatesPage() {
                     </div>
                     <button
                       onClick={() => openForm(apt)}
-                      className={`px-3 py-1.5 rounded-lg text-xs font-medium ${existingCert ? "bg-amber-50 text-amber-700 hover:bg-amber-100" : "bg-emerald-50 text-emerald-700 hover:bg-emerald-100"}`}
+                      className={`px-3 py-1.5 rounded-lg text-xs font-medium ${existingCert ? "bg-primary-50 text-primary-700 hover:bg-primary-100" : "bg-primary-50 text-primary-700 hover:bg-primary-100"}`}
                     >
                       {existingCert ? "Edit" : "Buat"}
                     </button>
