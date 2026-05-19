@@ -10,17 +10,17 @@ interface HeaderProps {
 export default function Header({ userName }: HeaderProps) {
   return (
     <header className="sticky top-0 z-30 bg-white/80 backdrop-blur-xl border-b border-stone-200/60">
-      <div className="flex items-center justify-between h-16 px-6 lg:px-8">
-        <div className="flex items-center gap-4">
-          <div className="lg:hidden w-10" />
-          <div>
-            <h2 className="text-base font-display font-semibold text-stone-900">
+      <div className="flex items-center justify-between gap-3 h-16 px-3 sm:px-4 lg:px-8">
+        <div className="flex items-center gap-3 min-w-0 flex-1">
+          <div className="lg:hidden w-10 flex-shrink-0" />
+          <div className="min-w-0 flex-1">
+            <h2 className="text-sm sm:text-base font-display font-semibold text-stone-900 truncate">
               {getGreeting()}, {userName.split(" ")[0]}
             </h2>
           </div>
         </div>
 
-        <div className="flex items-center gap-3">
+        <div className="flex items-center gap-2 sm:gap-3 flex-shrink-0">
           <div className="hidden md:flex items-center gap-2 bg-stone-50 rounded-lg px-3.5 py-2 w-60 border border-stone-200/60 focus-within:border-primary-400 focus-within:ring-2 focus-within:ring-primary-700/5 transition-all">
             <Search size={15} className="text-stone-400 flex-shrink-0" />
             <input

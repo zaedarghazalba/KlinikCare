@@ -20,7 +20,7 @@ export default function LayoutWrapper({
       <Sidebar role={role} userName={userName} />
       <div className="lg:pl-72">
         <Header userName={userName} />
-        <main className="p-6 lg:p-8 animate-fade-in">{children}</main>
+        <main className="p-3 sm:p-4 lg:p-8 animate-fade-in">{children}</main>
       </div>
     </div>
   );

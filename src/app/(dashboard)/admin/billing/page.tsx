@@ -119,58 +119,64 @@ useEffect(() => {
       </div>
 
       {/* Summary Cards */}
-      <div className="grid grid-cols-1 sm:grid-cols-4 gap-4 print:hidden">
-        <div className="bg-white rounded-2xl p-5 border border-gray-100">
-          <div className="flex items-center gap-3 mb-2">
-            <div className="w-10 h-10 rounded-xl bg-orange-100 flex items-center justify-center"><Clock size={20} className="text-orange-600" /></div>
-            <p className="text-sm text-gray-500">Menunggu Obat</p>
+      <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4 print:hidden">
+        <div className="bg-white rounded-2xl p-4 sm:p-5 border border-gray-100">
+          <div className="flex items-center gap-2 sm:gap-3 mb-2">
+            <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-xl bg-orange-100 flex items-center justify-center flex-shrink-0"><Clock size={18} className="text-orange-600" /></div>
+            <p className="text-xs sm:text-sm text-gray-500 truncate">Menunggu Obat</p>
           </div>
-          <p className="text-2xl font-bold text-gray-900">{summary.awaitingMedicineCount}</p>
+          <p className="text-xl sm:text-2xl font-bold text-gray-900">{summary.awaitingMedicineCount}</p>
         </div>
-        <div className="bg-white rounded-2xl p-5 border border-gray-100">
-          <div className="flex items-center gap-3 mb-2">
-            <div className="w-10 h-10 rounded-xl bg-primary-100 flex items-center justify-center"><Clock size={20} className="text-primary-600" /></div>
-            <p className="text-sm text-gray-500">Menunggu Bayar</p>
+        <div className="bg-white rounded-2xl p-4 sm:p-5 border border-gray-100">
+          <div className="flex items-center gap-2 sm:gap-3 mb-2">
+            <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-xl bg-primary-100 flex items-center justify-center flex-shrink-0"><Clock size={18} className="text-primary-600" /></div>
+            <p className="text-xs sm:text-sm text-gray-500 truncate">Menunggu Bayar</p>
           </div>
-          <p className="text-2xl font-bold text-gray-900">{summary.pendingCount}</p>
+          <p className="text-xl sm:text-2xl font-bold text-gray-900">{summary.pendingCount}</p>
         </div>
-        <div className="bg-white rounded-2xl p-5 border border-gray-100">
-          <div className="flex items-center gap-3 mb-2">
-            <div className="w-10 h-10 rounded-xl bg-emerald-100 flex items-center justify-center"><CheckCircle2 size={20} className="text-emerald-600" /></div>
-            <p className="text-sm text-gray-500">Sudah Lunas</p>
+        <div className="bg-white rounded-2xl p-4 sm:p-5 border border-gray-100">
+          <div className="flex items-center gap-2 sm:gap-3 mb-2">
+            <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-xl bg-emerald-100 flex items-center justify-center flex-shrink-0"><CheckCircle2 size={18} className="text-emerald-600" /></div>
+            <p className="text-xs sm:text-sm text-gray-500 truncate">Sudah Lunas</p>
           </div>
-          <p className="text-2xl font-bold text-gray-900">{summary.paidCount}</p>
+          <p className="text-xl sm:text-2xl font-bold text-gray-900">{summary.paidCount}</p>
         </div>
-        <div className="bg-white rounded-2xl p-5 border border-gray-100">
-          <div className="flex items-center gap-3 mb-2">
-            <div className="w-10 h-10 rounded-xl bg-primary-100 flex items-center justify-center"><DollarSign size={20} className="text-primary-600" /></div>
-            <p className="text-sm text-gray-500">Pendapatan Hari Ini</p>
+        <div className="bg-white rounded-2xl p-4 sm:p-5 border border-gray-100">
+          <div className="flex items-center gap-2 sm:gap-3 mb-2">
+            <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-xl bg-primary-100 flex items-center justify-center flex-shrink-0"><DollarSign size={18} className="text-primary-600" /></div>
+            <p className="text-xs sm:text-sm text-gray-500 truncate">Pendapatan Hari Ini</p>
           </div>
-          <p className="text-2xl font-bold text-gray-900">{formatCurrency(summary.todayPaid)}</p>
+          <p className="text-lg sm:text-2xl font-bold text-gray-900 break-words">{formatCurrency(summary.todayPaid)}</p>
         </div>
       </div>
 
       {/* Filters */}
-      <div className="bg-white rounded-2xl p-4 border border-gray-100 print:hidden">
-        <div className="flex flex-col sm:flex-row gap-3">
-          <div className="flex gap-1 bg-gray-100 rounded-xl p-1">
-            {["all", "PENDING", "AWAITING_MEDICINE", "READY_FOR_PAYMENT", "PAID", "CANCELLED"].map((s) => (
-              <button
-                key={s}
-                onClick={() => setStatusFilter(s)}
-                className={`px-3 py-1.5 rounded-lg text-xs font-medium transition-all ${statusFilter === s ? "bg-white shadow text-gray-900" : "text-gray-500"}`}
-              >
-                {s === "all" ? "Semua" : s === "AWAITING_MEDICINE" ? "Menunggu Obat" : s === "READY_FOR_PAYMENT" ? "Siap Bayar" : getStatusLabel(s)}
-              </button>
-            ))}
+      <div className="bg-white rounded-2xl p-3 sm:p-4 border border-gray-100 print:hidden">
+        <div className="flex flex-col gap-3">
+          <div className="-mx-1 px-1 overflow-x-auto scrollbar-hide">
+            <div className="inline-flex gap-1 bg-gray-100 rounded-xl p-1 min-w-max">
+              {["all", "PENDING", "AWAITING_MEDICINE", "READY_FOR_PAYMENT", "PAID", "CANCELLED"].map((s) => (
+                <button
+                  key={s}
+                  onClick={() => setStatusFilter(s)}
+                  className={`px-3 py-1.5 rounded-lg text-xs font-medium transition-all whitespace-nowrap ${statusFilter === s ? "bg-white shadow text-gray-900" : "text-gray-500"}`}
+                >
+                  {s === "all" ? "Semua" : s === "AWAITING_MEDICINE" ? "Menunggu Obat" : s === "READY_FOR_PAYMENT" ? "Siap Bayar" : getStatusLabel(s)}
+                </button>
+              ))}
+            </div>
           </div>
-          <div className="relative flex-1">
-            <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400" size={16} />
-            <input type="text" placeholder="Cari invoice / pasien / dokter..." value={searchQuery} onChange={(e) => setSearchQuery(e.target.value)} className="w-full pl-9 pr-4 py-2 rounded-xl border border-gray-200 text-sm focus:ring-2 focus:ring-emerald-500/20 outline-none" />
+          <div className="flex flex-col sm:flex-row gap-2 sm:gap-3">
+            <div className="relative flex-1 min-w-0">
+              <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400" size={16} />
+              <input type="text" placeholder="Cari invoice / pasien / dokter..." value={searchQuery} onChange={(e) => setSearchQuery(e.target.value)} className="w-full pl-9 pr-4 py-2 rounded-xl border border-gray-200 text-sm focus:ring-2 focus:ring-emerald-500/20 outline-none" />
+            </div>
+            <div className="flex gap-2">
+              <input type="date" value={dateFrom} onChange={(e) => setDateFrom(e.target.value)} className="flex-1 sm:flex-none min-w-0 px-3 py-2 rounded-xl border border-gray-200 text-sm focus:ring-2 focus:ring-emerald-500/20 outline-none" />
+              <input type="date" value={dateTo} onChange={(e) => setDateTo(e.target.value)} className="flex-1 sm:flex-none min-w-0 px-3 py-2 rounded-xl border border-gray-200 text-sm focus:ring-2 focus:ring-emerald-500/20 outline-none" />
+              <button onClick={fetchData} className="px-4 py-2 rounded-xl gradient-primary text-white text-sm font-medium flex-shrink-0">Cari</button>
+            </div>
           </div>
-          <input type="date" value={dateFrom} onChange={(e) => setDateFrom(e.target.value)} className="px-3 py-2 rounded-xl border border-gray-200 text-sm focus:ring-2 focus:ring-emerald-500/20 outline-none" />
-          <input type="date" value={dateTo} onChange={(e) => setDateTo(e.target.value)} className="px-3 py-2 rounded-xl border border-gray-200 text-sm focus:ring-2 focus:ring-emerald-500/20 outline-none" />
-          <button onClick={fetchData} className="px-4 py-2 rounded-xl gradient-primary text-white text-sm font-medium">Cari</button>
         </div>
       </div>
 

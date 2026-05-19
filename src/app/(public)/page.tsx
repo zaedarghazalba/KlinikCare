@@ -63,6 +63,7 @@ export default async function LandingPage() {
           display: flex;
           align-items: center;
           justify-content: space-between;
+          gap: 12px;
         }
 
         .header .navmenu {
@@ -102,6 +103,7 @@ export default async function LandingPage() {
           transition: all 0.3s ease;
           letter-spacing: 0.3px;
           white-space: nowrap;
+          line-height: 1.2;
         }
 
         .header .btn-get-in:hover {
@@ -124,6 +126,7 @@ export default async function LandingPage() {
           letter-spacing: 0.3px;
           box-shadow: 0 2px 8px rgba(23, 92, 221, 0.25);
           white-space: nowrap;
+          line-height: 1.2;
         }
 
         .header .btn-book:hover {
@@ -140,34 +143,94 @@ export default async function LandingPage() {
           box-shadow: 0 2px 6px rgba(23, 92, 221, 0.2);
         }
 
+        .header .nav-controls {
+          display: flex;
+          align-items: center;
+          gap: 8px;
+        }
+
+        .header .mobile-nav-toggle {
+          color: var(--nav-color, #3c4049);
+          font-size: 28px;
+          line-height: 0;
+          margin-left: 8px;
+          transition: 0.3s;
+          cursor: pointer;
+        }
+
         .hero.section {
           padding-top: 180px;
         }
 
         @media (max-width: 1199px) {
-          .header .branding .container {
-            flex-wrap: wrap;
-          }
-
-          .header .d-flex.align-items-center {
-            width: 100%;
-            flex-direction: column;
-            align-items: flex-start !important;
-          }
-
-          .header .navmenu {
-            width: 100%;
-          }
-
           .header .auth-buttons {
             margin-left: 0;
             padding-left: 0;
             border-left: none;
-            margin-top: 12px;
+            gap: 6px;
+          }
+
+          .header .btn-get-in,
+          .header .btn-book {
+            font-size: 13px;
+            padding: 7px 14px;
           }
 
           .hero.section {
-            padding-top: 220px;
+            padding-top: 160px;
+          }
+        }
+
+        @media (max-width: 575px) {
+          .header .branding .container {
+            gap: 8px;
+          }
+
+          .header .branding .logo h1.sitename {
+            font-size: 20px;
+          }
+
+          .header .auth-buttons {
+            gap: 4px;
+          }
+
+          .header .btn-get-in,
+          .header .btn-book {
+            font-size: 12px;
+            padding: 6px 10px;
+          }
+
+          .header .mobile-nav-toggle {
+            font-size: 24px;
+            margin-left: 4px;
+          }
+
+          .hero.section {
+            padding-top: 150px;
+          }
+
+          .topbar .contact-info i + i {
+            margin-left: 12px !important;
+          }
+
+          .topbar .contact-info {
+            font-size: 12px;
+          }
+
+          .hero .hero-content .hero-actions .btn {
+            padding: 0.75rem 1.25rem !important;
+            font-size: 14px;
+            width: 100%;
+          }
+
+          .home-about .about-content .cta-section {
+            justify-content: center;
+            text-align: center;
+          }
+
+          .home-about .about-content .cta-section .btn-primary {
+            display: inline-block;
+            text-align: center;
           }
         }
 

@@ -79,31 +79,33 @@ export default function AdminReportsPage() {
           <div className="flex flex-wrap gap-2">
             {reportTypes.map(rt => (
               <button key={rt.value} onClick={() => setReportType(rt.value)}
-                className={`flex items-center gap-2 px-4 py-2.5 rounded-xl text-sm font-medium transition-all ${reportType === rt.value ? "gradient-primary text-white shadow-lg shadow-emerald-200" : "bg-gray-50 text-gray-600 hover:bg-gray-100"}`}>
+                className={`flex items-center gap-2 px-3 sm:px-4 py-2 sm:py-2.5 rounded-xl text-xs sm:text-sm font-medium transition-all ${reportType === rt.value ? "gradient-primary text-white shadow-lg shadow-emerald-200" : "bg-gray-50 text-gray-600 hover:bg-gray-100"}`}>
                 <rt.icon size={16} /> {rt.label}
               </button>
             ))}
           </div>
         </div>
 
-        <div className="bg-white rounded-2xl p-4 border border-gray-100 flex flex-wrap gap-3 items-center">
-          <div className="flex items-center gap-2">
-            <Calendar size={16} className="text-gray-400" />
-            <input type="date" value={dateFrom} onChange={e => setDateFrom(e.target.value)} className="px-3 py-2 rounded-xl border border-gray-200 text-sm" placeholder="Dari" />
+        <div className="bg-white rounded-2xl p-3 sm:p-4 border border-gray-100 flex flex-col sm:flex-row sm:flex-wrap gap-3 sm:items-center">
+          <div className="flex items-center gap-2 flex-wrap">
+            <Calendar size={16} className="text-gray-400 flex-shrink-0" />
+            <input type="date" value={dateFrom} onChange={e => setDateFrom(e.target.value)} className="flex-1 sm:flex-none min-w-0 px-3 py-2 rounded-xl border border-gray-200 text-sm" placeholder="Dari" />
             <span className="text-gray-400">-</span>
-            <input type="date" value={dateTo} onChange={e => setDateTo(e.target.value)} className="px-3 py-2 rounded-xl border border-gray-200 text-sm" placeholder="Sampai" />
+            <input type="date" value={dateTo} onChange={e => setDateTo(e.target.value)} className="flex-1 sm:flex-none min-w-0 px-3 py-2 rounded-xl border border-gray-200 text-sm" placeholder="Sampai" />
           </div>
-          <div className="flex-1 relative">
+          <div className="flex-1 relative min-w-0">
             <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400" size={16} />
             <input type="text" value={search} onChange={e => setSearch(e.target.value)} placeholder="Cari..." className="w-full pl-9 pr-4 py-2 rounded-xl border border-gray-200 text-sm" />
           </div>
-          <button onClick={fetchData} className="px-4 py-2 rounded-xl gradient-primary text-white text-sm font-medium">Cari</button>
-          <button onClick={handleExport} className="px-4 py-2 rounded-xl border border-gray-200 text-gray-700 text-sm font-medium flex items-center gap-2">
-            <Download size={16} /> Export
-          </button>
-          <button onClick={handlePrint} className="px-4 py-2 rounded-xl border border-gray-200 text-gray-700 text-sm font-medium flex items-center gap-2">
-            <Printer size={16} /> Cetak
-          </button>
+          <div className="flex gap-2 sm:flex-shrink-0">
+            <button onClick={fetchData} className="flex-1 sm:flex-none px-4 py-2 rounded-xl gradient-primary text-white text-sm font-medium">Cari</button>
+            <button onClick={handleExport} className="flex-1 sm:flex-none px-4 py-2 rounded-xl border border-gray-200 text-gray-700 text-sm font-medium flex items-center justify-center gap-2">
+              <Download size={16} /> <span className="hidden sm:inline">Export</span>
+            </button>
+            <button onClick={handlePrint} className="flex-1 sm:flex-none px-4 py-2 rounded-xl border border-gray-200 text-gray-700 text-sm font-medium flex items-center justify-center gap-2">
+              <Printer size={16} /> <span className="hidden sm:inline">Cetak</span>
+            </button>
+          </div>
         </div>
 
         {(reportType === "revenue" || reportType === "payments") && data?.revenue && (

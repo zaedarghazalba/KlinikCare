@@ -7,58 +7,59 @@ This version has breaking changes — APIs, conventions, and file structure may 
 ## Commands
 
 ```bash
-npm run dev           # Dev server (no Turbopack)
-npm run build         # Production build
-npm run start         # Production server
-npm run lint          # ESLint
-npm run test          # Vitest — watch mode
-npm run test:run      # Vitest — run once
-npm run test:coverage # Vitest — with coverage
-npm run db:push       # Push Prisma schema to DB
-npm run db:seed       # Seed initial data (password: password123)
-npm run db:studio     # Open Prisma Studio
+npm run dev           # Dev server (plain `next dev`, no Turbopack)
+npm run build         # Production build (output: standalone)
+npm run lint          # ESLint flat config (eslint.config.mjs)
+npm run test          # Vitest watch
+npm run test:run      # Vitest single run (CI-equivalent)
+npm run test:coverage # Vitest + v8 coverage
+npm run db:push       # Push prisma/schema.prisma to DB (no migration)
+npm run db:seed       # Run prisma/seed.ts (demo password: password123)
+npm run db:studio     # Prisma Studio
 ```
+
+`postinstall` runs `prisma generate`. After editing `prisma/schema.prisma` without reinstalling, re-run `npx prisma generate` manually.
+
+Single test: `npx vitest run src/lib/__tests__/utils.test.ts`.
 
 ## Architecture
 
-- **Next.js 16.2.4** (App Router) — non-standard version. Socket.IO removed; use polling.
-- **PostgreSQL + Prisma 6** — 13 models. Schema: `prisma/schema.prisma`. Client: `src/lib/db.ts`.
-- **NextAuth v5 (beta)** — config: `src/lib/auth.ts`. Server: `auth()`, Client: `useSession()`. Sessions expire after 30 min.
-- **Tailwind CSS 4** — custom theme in `src/app/globals.css` via `@theme`. Primary: emerald-500, Accent: blue-500.
-- **Vitest + Testing Library** — tests in `__tests__/` dirs, `*.test.ts` / `*.test.tsx`. Coverage targets `src/lib/` and `src/components/`.
-- **Zod** — all input validation in `src/lib/validations.ts`. Use `safeParse()`.
+- **Next.js 16.2.4** App Router. Socket.IO is removed; live UI uses polling. `src/components/socket-provider.tsx` is a no-op stub — do not re-enable.
+- **Route guard**: `src/proxy.ts` (Next 16's replacement for `middleware.ts`). `src/middleware.ts.bak` is the orphaned old file, ignore it. Public routes: `/`, `/login`, `/register`. API and `_next` bypass the guard; per-role dashboard prefixes are mapped at `src/proxy.ts:5`.
+- **Auth**: NextAuth v5 beta in `src/lib/auth.ts`. JWT strategy, 30-minute idle expiry enforced manually in the `jwt` callback (returns empty token when stale; `session` callback returns empty session when `token.id` is missing). Server: `auth()` from `@/lib/auth`. Client: `useSession()`.
+- **DB**: PostgreSQL + Prisma 6. 11 models in `prisma/schema.prisma`. Singleton client `prisma` exported from `src/lib/db.ts`.
+- **Validation**: Zod schemas in `src/lib/validations.ts`. Use `safeParse()`, not `parse()`.
+- **Rate limiting**: in-memory, resets on server restart. Helpers in `src/lib/rate-limit.ts` return `NextResponse | null`; pattern in route handlers is `const blocked = await apiRateLimit(req); if (blocked) return blocked;`. Variants: `authRateLimit` (5/15min), `apiRateLimit` (100/min), `bookingRateLimit` (3/min).
+- **Audit log**: `createAuditLog()` from `@/lib/audit` — fire-and-forget, swallows errors. Use for admin, billing, and patient-data writes.
+- **Tests**: Vitest + Testing Library + jsdom. Setup: `vitest.setup.ts`. Files live in `__tests__/` folders next to source; pattern `src/**/*.{test,spec}.{ts,tsx}`. Coverage targets `src/lib/**` and `src/components/**`.
+- **Tailwind 4**: theme tokens declared in `src/app/globals.css` via `@theme` (no `tailwind.config.*`). PostCSS plugin: `@tailwindcss/postcss`.
 
-## Auth & Routing
+## Two parallel UIs
 
-- **Middleware**: `src/proxy.ts` (NOT `middleware.ts`). Next.js 16 uses `proxy.ts` for route guards.
-- 5 roles: `PATIENT`, `ADMIN`, `DOCTOR`, `OWNER`, `PHARMACY`.
-- Auth pages: `src/app/(auth)/`
-- Dashboards: `src/app/(dashboard)/{admin,doctor,owner,patient,pharmacy}/`
-- Sidebar menu in `src/components/layout/Sidebar.tsx` adapts per role.
-- Dashboard layout (`src/app/(dashboard)/layout.tsx`) redirects unauthenticated users to `/login`.
+- **Public landing** (`src/app/(public)/`) loads legacy Bootstrap, AOS, GLightbox, and Swiper from `public/template/` via `src/components/TemplateScripts.tsx` and `TemplateStyles.tsx`. Reference HTML lives in the top-level `Template/` directory and is not bundled.
+- **Dashboards** (`src/app/(dashboard)/{admin,doctor,owner,patient,pharmacy}/`) are Tailwind-based. Do not import Bootstrap classes here.
 
-## Key Conventions
+`src/components/layout/Sidebar.tsx` adapts the menu by role. Dashboard layout redirects unauthenticated users to `/login`.
+
+## Conventions
 
 - All user-facing strings in **Indonesian**.
 - Server Components by default; add `'use client'` only for interactivity.
-- Path alias: `@/` → `./src/`.
-- No comments unless explicitly requested.
-- API routes in `src/app/api/` with rate limiting (`src/lib/rate-limit.ts`).
-- Audit logging via `createAuditLog()` from `@/lib/audit` for critical actions.
-- Output: `standalone` (Docker-ready via `docker-compose.yml`).
-- CORS header hardcodes `192.168.1.12:3000` in `next.config.ts` — update if deploying elsewhere.
+- Path alias `@/` → `./src/`.
+- **No comments unless explicitly requested.**
+- Conventional commits: `feat:`, `fix:`, `docs:`, `test:`, `refactor:`.
+- API routes return `{ error: "<pesan Indonesia>" }` with appropriate HTTP status.
+
+## Env & deployment quirks
+
+- `.env.example` uses NextAuth v5 names (`AUTH_SECRET`, `AUTH_URL`). `docker-compose.yml` instead injects legacy `NEXTAUTH_SECRET`/`NEXTAUTH_URL` and hardcodes `192.168.1.12` in `DATABASE_URL` / `NEXTAUTH_URL`. Pick one set per environment and align both files when deploying.
+- `next.config.ts` hardcodes `Access-Control-Allow-Origin: http://192.168.1.12:3000`. Update if the deploy origin differs.
+- Build output is `standalone` — the Dockerfile copies `.next/standalone` + `.next/static`.
 
 ## Gotchas
 
-- **Rate limiting is in-memory** — resets on server restart. Not Redis-backed.
-- **Seed password**: all demo accounts use `password123`.
-- **Doctor schedule** stored as JSON in schema — seed uses Mon-Fri time slots.
-- **PaymentStatus** has 5 states: `PENDING`, `AWAITING_MEDICINE`, `READY_FOR_PAYMENT`, `PAID`, `CANCELLED`.
-
-## Git
-
-- Conventional commits: `feat:`, `fix:`, `docs:`, `test:`, `refactor:`.
-
----
-
-When in doubt, read existing code. Follow established patterns.
+- Demo seed accounts (all roles) share password `password123`.
+- `Doctor.schedule` is a JSON column; seed populates Mon–Fri slots.
+- `PaymentStatus` has 5 states: `PENDING`, `AWAITING_MEDICINE`, `READY_FOR_PAYMENT`, `PAID`, `CANCELLED`. `PrescriptionStatus` has only `PENDING` / `DISPENSED`. `AppointmentStatus` has 5: `WAITING`, `CHECKED_IN`, `IN_CONSULTATION`, `COMPLETED`, `CANCELLED`.
+- `seed_medicines.js` and `seed_pharmacy.js` at the repo root are ad-hoc CommonJS one-offs and are NOT wired into npm scripts. The canonical seeder is `prisma/seed.ts` (`npm run db:seed`).
+- "Logged in but session looks empty" usually means the 30-minute idle expiry triggered, not a bug.
